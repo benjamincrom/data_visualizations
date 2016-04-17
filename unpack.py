@@ -27,17 +27,17 @@ def get_html(url):
 
     return html
 
-def reformat_chip_time(chip_time_str):
-    updated_chip_time = chip_time_str.rsplit(':', maxsplit=1)[0]
+def reformat_gun_time(gun_time_str):
+    updated_gun_time = gun_time_str.rsplit(':', maxsplit=1)[0]
     # Round down to ten minute intervals
-    updated_chip_time = '{}0'.format(updated_chip_time[:-1])
+    updated_gun_time = '{}0'.format(updated_gun_time[:-1])
     # Add zero hour prefix if time is less than 60 minutes
-    if len(updated_chip_time) == 2:
-        updated_chip_time = '0:{}'.format(updated_chip_time)
+    if len(updated_gun_time) == 2:
+        updated_gun_time = '0:{}'.format(updated_gun_time)
     # Add a leading zero to the chip time
-    updated_chip_time = '0{}'.format(updated_chip_time)
+    updated_gun_time = '0{}'.format(updated_gun_time)
 
-    return updated_chip_time
+    return updated_gun_time
 
 def get_entry_list(html):
     soup = BeautifulSoup(html)
@@ -51,7 +51,7 @@ def get_entry_list(html):
         if td_list[0] == 'Place':
             continue
 
-        td_list[6] = reformat_chip_time(td_list[6])
+        td_list[7] = reformat_gun_time(td_list[7])
 
         row_entry = Entry(*td_list)
         row_entry_list.append(row_entry)
@@ -60,7 +60,7 @@ def get_entry_list(html):
 
 def get_tuple_list(row_entry_list):
     values_dict = Counter(
-        [(row.chip_time, '{}{}'.format(row.age_group, row.gender))
+        [(row.gun_time, '{}{}'.format(row.age_group, row.gender))
          for row in row_entry_list]
     )
 
