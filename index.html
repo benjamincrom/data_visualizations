@@ -13,7 +13,6 @@
       font: 12px helvetica;
     }
 
-
     .axis path, .axis line {
       fill: none;
       stroke: #000;
@@ -67,7 +66,7 @@
             .range([0, width]);
 
         var y = d3.scale.linear()
-            .range([height-10, 0]);
+            .range([height - 10, 0]);
 
         var z = d3.scale.ordinal()
             .range(colorrange);
@@ -125,7 +124,6 @@
               .attr('class', 'layer')
               .attr('d', function(d) { return area(d.values); })
               .style('fill', function(d, i) { return z(i); });
-
 
           svg.append('g')
               .attr('class', 'x axis')
@@ -186,7 +184,9 @@
                 .attr('opacity', '1');
                 d3.select(this)
                 .classed('hover', false)
-                .attr('stroke-width', '0px'), tooltip.html( '<p>' + d.key + '<br>' + pro + '</p>' ).style('visibility', 'hidden');
+                .attr('stroke-width', '0px'), tooltip.html('<p>' + d.key +'<br>'
+                                                           + pro + '</p>')
+                .style('visibility', 'hidden');
             })
             
           var vertical = d3.select('.chart')
